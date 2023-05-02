@@ -27,7 +27,6 @@ function playRound(playerSelection, computerSelection) {
 			resultMessage = resultMessages["lose"];
 	else
 			resultMessage = resultMessages["draw"];
-	//console.table([playerSelection, computerSelection]);
 	return resultMessage;
 }
 
@@ -40,28 +39,38 @@ function getPlayerSelection() {
 	return playerSelection;	
 }
 
+function updateScoresText(playerScore, computerScore) {
+	divScores.innerText = `Player: ${playerScore} --- Computer: ${computerScore}`;	
+}
+
 function game() {
 	let computerScore = 0;
 	let playerScore = 0;
-	let roundsToPlay = 5;
+	let gamesPlayed = 0;
+	let maxScore = 5;
 	let playerSelection = "";
 	let computerSelection = "";
+	let result = "";
 
-	for (let i = 0; i < roundsToPlay; ++i) {
-		playerSelection = getPlayerSelection();
-		computerSelection = getComputerSelection();
-		result = playRound(playerSelection, computerSelection);
-		console.log(result);
-		if (result.includes("win")) { playerScore++; }
-		else if (result.includes("lose")) { computerScore++; }
-	}
-	//console.log(playerScore - computerScore);
-	if (playerScore - computerScore > 0)
-		console.log("Congratulations! You win the game!");
-	else if (playerScore - computerScore > 0)
-		console.log("Sorry. You lose the game!");
-	else
-		console.log("Scores drawn. No one wins.");
+	divScores.innerText = `Player: ${playerScore} --- Computer: ${computerScore}`;
+
+	buttons.forEach( (button) => { 
+		button.addEventListener("click", (e) => {
+			if (playerScore < maxScore && computerScore < maxScore) {
+				result = playRound(e.target["id"], getComputerSelection());	
+				divMessages.innerText = `Game no. ${gamesPlayed + 1} : ` + result;
+				if (result.includes("win")) { playerScore++; }
+				else if (result.includes("lose")) { computerScore++; }
+			}
+			if (playerScore === maxScore || computerScore === maxScore) {
+				if (playerScore - computerScore > 0)
+					divMessages.innerText = "Congratulations! You win the game!";
+				else 
+					divMessages.innerText = "Sorry. You lose the game!";
+			}
+			updateScoresText(playerScore, computerScore);
+		});
+	});
 }
 
 
@@ -71,4 +80,7 @@ function game() {
 /************************************************/
 
 const CHOICES = ["ROCK", "SCISSORS", "PAPER"];
+const buttons = document.querySelectorAll("button");
+divScores = document.querySelector(".scores");
+divMessages = document.querySelector(".messages");
 game();
