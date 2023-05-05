@@ -3,11 +3,58 @@
 	<head>
 		<meta charset="utf-8">
 		<script src="./main.js" defer></script>
+		<style>
+			body {
+				box-sizing: border-box;
+			}
+
+			.scores {
+				background-color: #ACB1D6;
+				color: blue;
+				text-align: center;
+				font-family: simpsonfont;
+				font-weight: bold;
+			}
+
+			.messages {
+				background-color: #FFEAD2;
+				color: blue;
+				text-align: center;
+				font-family: roboto;
+			}
+
+			.buttons {
+			  display: flex;
+			  align-content: center;
+			  justify-content: space-between;
+			  gap: 15em;
+			  padding: 2em;
+			}
+
+			#rock {
+				flex: auto;
+			}
+
+
+			#paper {
+				flex: auto;
+			}
+
+			#scissors {
+				flex: auto;
+			}
+
+
+
+
+		</style>
 	</head>
 	<body>
+		<div class="buttons">
 			<button type="button" id="rock">ROCK</button>
 			<button type="button" id="paper">PAPER</button>
 			<button type="button" id="scissors">SCISSORS</button>
+		</div>
 			<div class="scores"></div>
 			<div class="messages"></div>
 
