@@ -27,7 +27,10 @@ function playRound(playerSelection, computerSelection) {
 			resultMessage = resultMessages["lose"];
 	else
 			resultMessage = resultMessages["draw"];
+<<<<<<< HEAD
 	//console.table([playerSelection, computerSelection]);
+=======
+>>>>>>> rps-ui
 	return resultMessage;
 }
 
@@ -40,6 +43,7 @@ function getPlayerSelection() {
 	return playerSelection;	
 }
 
+<<<<<<< HEAD
 function game() {
 	let computerScore = 0;
 	let playerScore = 0;
@@ -64,6 +68,42 @@ function game() {
 		console.log("Scores drawn. No one wins.");
 }
 
+=======
+function updateScoresText(playerScore, computerScore) {
+	divScores.innerText = `Player: ${playerScore} --- Computer: ${computerScore}`;	
+}
+
+function game() {
+	let computerScore = 0;
+	let playerScore = 0;
+	let gamesPlayed = 0;
+	let maxScore = 5;
+	let playerSelection = "";
+	let computerSelection = "";
+	let result = "";
+
+	divScores.innerText = `Player: ${playerScore} --- Computer: ${computerScore}`;
+
+	buttons.forEach( (button) => { 
+		button.addEventListener("click", (e) => {
+			if (playerScore < maxScore && computerScore < maxScore) {
+				result = playRound(e.target["id"], getComputerSelection());	
+				divMessages.innerText = `Game no. ${gamesPlayed + 1} : ` + result;
+				if (result.includes("win")) { playerScore++; }
+				else if (result.includes("lose")) { computerScore++; }
+			}
+			if (playerScore === maxScore || computerScore === maxScore) {
+				if (playerScore - computerScore > 0)
+					divMessages.innerText = "Congratulations! You win the game!";
+				else 
+					divMessages.innerText = "Sorry. You lose the game!";
+			}
+			updateScoresText(playerScore, computerScore);
+		});
+	});
+}
+
+>>>>>>> rps-ui
 
 
 /************************************************/
@@ -71,4 +111,10 @@ function game() {
 /************************************************/
 
 const CHOICES = ["ROCK", "SCISSORS", "PAPER"];
+<<<<<<< HEAD
+=======
+const buttons = document.querySelectorAll("button");
+divScores = document.querySelector(".scores");
+divMessages = document.querySelector(".messages");
+>>>>>>> rps-ui
 game();
